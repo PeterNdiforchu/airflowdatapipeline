@@ -41,4 +41,4 @@ class LoadFactOperator(BaseOperator):
         
         redshift_hook.run(LoadFactOperator.insert_sql.format(self.table, self.sql_query))
                               
-        self.log.info(f"Finished {}".format(self.table))
+        self.log.info(f"Finished Loading fact table '{self.table}' into Redshift")
