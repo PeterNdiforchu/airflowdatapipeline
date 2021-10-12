@@ -41,4 +41,4 @@ class LoadDimensionOperator(BaseOperator):
             
         redshfit_hook.run(LoadDimensionalOperator.insert_sql.format(self.table, self.sql_query))
         
-        self.log.info(f"Finished {}".format(self.table))
+        self.log.info(f"Finished Loading Dimension table '{self.table}' into Redshift")
