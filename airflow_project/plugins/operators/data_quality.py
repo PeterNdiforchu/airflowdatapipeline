@@ -27,7 +27,7 @@ class DataQualityOperator(BaseOperator):
                  # Define your operators params (with defaults) here
                  # Example:
                  # conn_id = your-connection-name
-                 redshift_conn_id="redshift",
+                 redshift_conn_id = "redshift",
                  tables=[],
                  *args, **kwargs):
 
@@ -53,11 +53,11 @@ class DataQualityOperator(BaseOperator):
                 failureCount += 1
                 failingTest.append(sql_query)
                 
-             if failureCount > 0:
+            if failureCount > 0:
                 self.log.info("bad data quality")
                 self.log.info("number of failed test: {}".format(errorCount))
                 self.log.info(failingTest)
                 raise ValueError("Fail")
                 
-              if failureCount == 0:
+            if failureCount == 0:
                 self.log.info("Pass")
