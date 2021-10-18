@@ -37,7 +37,7 @@ class LoadFactOperator(BaseOperator):
         redshift_hook = PostgresHook(postgres_conn_id=self.redshift_conn_id)
         
         if self.truncate_data:
-            redshift_hook.run(LoadFactorOperator.truncate_sql.format(self.table)
+            redshift_hook.run(LoadFactorOperator.truncate_sql.format(self.table))
         
         redshift_hook.run(LoadFactOperator.insert_sql.format(self.table, self.sql_query))
                               
