@@ -20,7 +20,7 @@ class LoadDimensionOperator(BaseOperator):
                  table = "",
                  truncate_data = True,
                  sql_query = "",
-                 args, **kwargs):
+                 *args, **kwargs):
 
         super(LoadDimensionOperator, self).__init__(*args, **kwargs)
         # Map params here
