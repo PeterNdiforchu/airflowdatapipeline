@@ -13,8 +13,8 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 from airflow.contrib.hooks.aws_hook import AwsHook
 
-AWS_KEY = os.environ.get('AWS_KEY')
-AWS_SECRET = os.environ.get('AWS_SECRET')
+AWS_KEY = os.environ.get('AKIAYK3MS7DVGOOINBWR')
+AWS_SECRET = os.environ.get('EF4sL+I1Toj+Bg3nubz4KDIBJ0stoSzR5yRStXKY')
 
 default_args = {
     'owner': 'udacity',
@@ -32,14 +32,15 @@ dag = DAG('udac_example_dag',
           schedule_interval='0 * * * *'
         )
 
+
+start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
+
 create_tables_task = PostgresOperator(
     task_id='Create_tables',
     dag=dag,
     sql='create_tables.sql',
     postgres_conn_id='redshift'
 )
-
-start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
 
 stage_events_to_redshift = StageToRedshiftOperator(
     task_id='Stage_events',
@@ -108,8 +109,9 @@ run_quality_checks = DataQualityOperator(
 
 end_operator = DummyOperator(task_id='Stop_execution',  dag=dag)
 
-start_operator >> stage_events_to_redshift
-start_operator >> stage_songs_to_redshift
+start_operator >> create_tables_task
+create_tables_task >> stage_events_to_redshift
+create_tables_task >> stage_songs_to_redshift
 stage_events_to_redshift >> load_songplays_table
 stage_songs_to_redshift >> load_songplays_table
 load_songplays_table >> load_user_dimension_table
