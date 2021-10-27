@@ -13,8 +13,8 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 from airflow.contrib.hooks.aws_hook import AwsHook
 
-AWS_KEY = os.environ.get('AKIAYK3MS7DVGOOINBWR')
-AWS_SECRET = os.environ.get('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')
+AWS_KEY = os.environ.get('')
+AWS_SECRET = os.environ.get('')
 
 default_args = {
     'owner': 'udacity',
